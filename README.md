@@ -105,22 +105,22 @@ Presenter - презентер содержит основную логику п
 #### Интерфейс `IProduct` (Товар)
 Назначение: описывает структуру данных товара, представленного в каталоге.
 
-Поля:
-`id: string` - уникальный идентификатор товара
-`description: string` -  подробное описание товара
-`image: string` - URL‑путь к изображению товара
-`title: string` - название товара
-`category: string` - категория товара
+Поля:  
+`id: string` - уникальный идентификатор товара;  
+`description: string` -  подробное описание товара;  
+`image: string` - URL‑путь к изображению товара;  
+`title: string` - название товара;  
+`category: string` - категория товара;  
 `price: number | null` - цена товара (может быть `null`, если цена не указана).
 
 #### Интерфейс `IBuyer` (Покупатель)
 Назначение: описывает персональные и контактные данные покупателя.
 
-Поля:
-`payment: TPayment` - выбранный способ оплаты;
-`email: string` - электронная почта покупателя;
-`phone: string` - номер телефона;
-`address: string` - адрес доставки.
+Поля:  
+`payment: TPayment` - выбранный способ оплаты;  
+`email: string` - электронная почта покупателя;  
+`phone: string` - номер телефона;  
+`address: string` - адрес доставки.  
 
 ### Модели данных
 
@@ -133,8 +133,8 @@ Presenter - презентер содержит основную логику п
 constructor()
 ```
 
-Поля класса:
-`private products: IProduct[] = []` - массив всех товаров в каталоге;
+Поля класса:  
+`private products: IProduct[] = []` - массив всех товаров в каталоге;  
 `private selectedProduct: IProduct | null = null` - товар, выбранный для подробного отображения (может быть null, если ничего не выбрано).
 
 Методы:
@@ -165,7 +165,7 @@ constructor()
 constructor()
 ```
 
-Поле класса:
+Поле класса:  
 `private items: IProduct[] = []` — массив товаров в корзине.
 
 Методы:
@@ -202,10 +202,10 @@ constructor()
 constructor()
 ```
 
-Поля класса:
-`private payment: TPayment | null = null` — способ оплаты;
-`private email: string = ''` — email покупателя;
-`private phone: string = ''` — телефон;
+Поля класса:  
+`private payment: TPayment | null = null` — способ оплаты;  
+`private email: string = ''` — email покупателя;  
+`private phone: string = ''` — телефон;  
 `private address: string = ''` — адрес доставки.
 
 Методы:
