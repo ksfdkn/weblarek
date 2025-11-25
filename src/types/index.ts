@@ -6,7 +6,7 @@ export interface IApi {
 }
 
 export interface TPayment {
-    payment: 'card' | 'cash' | '';
+    payment: 'card' | 'cash';
 }
 
 export interface IProduct {
