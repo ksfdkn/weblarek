@@ -1,47 +1,47 @@
-import { Buyer } from './components/base/Models/Buyer';
-import { ProductCatalog } from './components/base/Models/ProductCatalog';
-import { ShoppingCart } from './components/base/Models/ShoppingCart';
+import { Api } from './components/base/Api';
+import { Buyer } from './components/Models/Buyer';
+import { ProductCatalog } from './components/Models/ProductCatalog';
+import { ShoppingCart } from './components/Models/ShoppingCart';
 import './scss/styles.scss';
-import { TPayment } from './types';
+import { isTPayment } from './types';
+import { apiProducts } from './utils/data';
 
-/*const catalog = new ProductCatalog();
-catalog.setProducts([ 
-  { id: '1', title: 'Товар', description: 'Описание', image: '/img.jpg', category: 'Категория', price: 100 },
-  { id: '2', title: 'Товар', description: 'Описание', image: '/img.jpg', category: 'Категория', price: 100 },
-  { id: '3', title: 'Товар', description: 'Описание', image: '/img.jpg', category: 'Категория', price: 100 },
-]);
-const product = catalog.getProductById("2");
-
-console.log(catalog);
-console.log(product);
-
+const catalog = new ProductCatalog();
 const cart = new ShoppingCart();
+const buyer = new Buyer(); 
+
+const products = apiProducts.items;
+
+catalog.setProducts(products);
+const product = catalog.getProductById("c101ab44-ed99-4a54-990d-47aa2bb4e7d9");
+
+console.log("Массив товаров из каталога: ", catalog.getProducts());
+console.log("Карточка товара:", product);
 
 if (product !== undefined) {
   cart.addItem(product);
 }
 
-console.log(cart);
-console.log(cart.getTotalPrice());
+console.log("Корзина:", cart.getItems());
+console.log("Стоимость всех товаров:", cart.getTotalPrice());
 
-if (product !== undefined) {
+/*if (product !== undefined) {
   cart.removeItem(product);
+}*/
+
+console.log("Корзина:", cart.getItems());
+
+const payment = "online";
+
+if (isTPayment(payment)) {
+  buyer.setPayment(payment);
 }
-
-console.log(cart);
-
-const buyer = new Buyer();  
-const paymentStr = 'card';
-const payment = 'card' as unknown as TPayment;
-
-buyer.setPayment(payment);
 buyer.setEmail("email");
-buyer.setPhone("phone");
-buyer.setAddress("address");
 
-console.log(buyer.getData());
 
-console.log(buyer.validate());
+console.log("Покупатель:", buyer.getData());
+
+console.log("Валидация покупателя:", buyer.validate());
 
 buyer.clear();
-console.log(buyer.validate());*/
+console.log("Валидация покупателя:", buyer.validate());

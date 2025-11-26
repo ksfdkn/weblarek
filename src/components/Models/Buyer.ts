@@ -1,12 +1,11 @@
-import { IBuyer, TPayment } from "../../../types";
+import { IBuyer, TPayment } from "../../types";
+
 
 export class Buyer {
-  private payment: TPayment | null = null;
-  private email: string = '';
-  private phone: string = '';
-  private address: string = '';
-
-  constructor() { };
+  private payment: TPayment| string = "";
+  private email: string = "";
+  private phone: string = "";
+  private address: string = "";
 
   /**
    * Обновляет поле `payment`
@@ -46,9 +45,6 @@ export class Buyer {
    * @throws {Error} - если не выбран способ оплаты
    */
   getData(): IBuyer {
-    if (!this.payment) {
-      throw new Error("Способ оплаты не выбран");
-    }
     return {
       payment: this.payment,
       email: this.email,
@@ -61,7 +57,7 @@ export class Buyer {
    * Сбрасывает все поля до начальных значений (`null` или пустых строк)
    */
   clear(): void {
-    this.payment = null;
+    this.payment = "";
     this.email = "";
     this.phone = "";
     this.address = "";
@@ -91,19 +87,19 @@ export class Buyer {
       address?: string;
     } = {};
 
-    if (this.payment === null) {
+    if (!this.payment) {
       errors.payment = "Укажите вид оплаты";
     }
 
-    if (this.email === "") {
+    if (!this.email) {
       errors.email = "Укажите ваш email";
     }
 
-    if (this.phone === "") {
+    if (!this.phone) {
       errors.phone = "Укажите ваш телефон";
     }
 
-    if (this.address === "") {
+    if (!this.address) {
       errors.address = "Укажите ваш адрес";
     }
 
