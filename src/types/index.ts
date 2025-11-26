@@ -22,7 +22,7 @@ export interface IBuyer {
     address?: string;
 }
 
-export interface IProductResponce {
+export interface IProductsResponce {
     total: number;
     items: IProduct[];
 }
@@ -31,7 +31,7 @@ export interface IRequest extends IBuyer {
     total: number;
     items: string[];
 }
-
+//в теории написано, что запрос будем в след.спринте отправлять
 export interface IResponse {
     id: string;
     total: number;

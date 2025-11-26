@@ -15,7 +15,7 @@ export class ProductCatalog {
    * @throws {Error} - если `products` не массив
    */
   setProducts(products: IProduct[]): void {
-    if(Array.isArray(products)) {
+    if (Array.isArray(products)) {
       this.products = products
     } else {
       throw new Error("Параметр products должен быть массивом");
@@ -45,7 +45,7 @@ export class ProductCatalog {
    * @throws {Error} - `product` не `IProduct`
    */
   setSelectedProduct(product: IProduct): void {
-    if(typeof product === 'object' || product !== null) {
+    if (typeof product === 'object' || product !== null) {
       this.selectedProduct = product;
     } else {
       throw new Error("Параметр product должен быть обьектом");
