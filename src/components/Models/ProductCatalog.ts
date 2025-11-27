@@ -1,9 +1,17 @@
 import { IProduct } from "../../types";
 
+/**
+ * Класс ProductCatalog представляет модель данных каталога товаров
+ */
 export class ProductCatalog {
   private products: IProduct[] = [];
   private selectedProduct: IProduct | null = null;
 
+  // нужны ли конструкторы в классах каталога и корзины? или наоборот нужно
+  // вернуть конструктор в класс для покупателя?
+  /**
+   * Конструктор класса инициализирует пустой каталог товаров и отсутствие выбранного товара
+   */
   constructor() {
     this.products = [];
     this.selectedProduct = null;

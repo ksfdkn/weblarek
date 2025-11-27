@@ -1,5 +1,7 @@
 export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
-export type TPayment = 'online' | 'cash'; //уточнить второе значение
+export type TPayment = 'online' | 'cash'; 
+// если нужно, то `online` поменяю на `card`
+// просто в postman увидела `payment: online`
 
 export interface IApi {
     get<T extends object>(uri: string): Promise<T>;
@@ -37,8 +39,8 @@ export interface IResponse {
     total: number;
 }
 
-// раньше зачем-то TPayment сделала интерфейсом, а не типом, писала функцию для проверки
 // хочу оставить ее, вдруг понадобиться когда-нибудь :)
+// пы.сы. вроде как понадобилась, чтобы при сохранении мы не могли передавать любой string
 export function isTPayment(value: string): value is TPayment {
   return value === 'online' || value === 'cash';
 }

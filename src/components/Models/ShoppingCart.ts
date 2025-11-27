@@ -1,8 +1,16 @@
 import { IProduct } from "../../types";
 
+/**
+ * Класс ShoppingCart представляет модель данных корзины покупок
+ */
 export class ShoppingCart {
   private items: IProduct[] = [];
 
+  // нужны ли конструкторы в классах каталога и корзины? или наоборо нужно
+  // вернуть конструктов в класс для покупателя?
+  /**
+   * Конструктор класса инициализирует пустую корзину (массив items)
+   */
   constructor() {
     this.items = [];
   }
@@ -16,7 +24,7 @@ export class ShoppingCart {
   }
 
   /**
-   * Добавляет товар в корзину (если его ещё нет)
+   * Добавляет товар в корзину
    * @param product {IProduct} - товар для добавления
    * @throws {Error} - если товар уже есть в корзине
    */
@@ -29,11 +37,11 @@ export class ShoppingCart {
   }
 
   /**
-   * Удаляет товар из корзины по объекту
+   * Удаляет товар из корзины по его идентификатору (сравнивает по `id`)
    * @param product {IProduct} - товар для удаления
    */
   removeItem(product: IProduct): void {
-    const index = this.items.findIndex(item => item.id === product.id); //сильно ли съест память, если большая корзина?
+    const index = this.items.findIndex(item => item.id === product.id);
 
     if (index !== -1) {
       this.items.splice(index, 1);

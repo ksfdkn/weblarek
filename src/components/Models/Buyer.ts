@@ -1,11 +1,15 @@
 import { IBuyer, TPayment } from "../../types";
 
-
+/**
+ * Класс Buyer представляет модель данных покупателя
+ */
 export class Buyer {
   private payment: TPayment| string = "";
   private email: string = "";
   private phone: string = "";
   private address: string = "";
+
+  // нужен ли здесь конструктор или я неправильно поняла наставника?
 
   /**
    * Обновляет поле `payment`
@@ -40,7 +44,7 @@ export class Buyer {
   }
 
   /**
-   * Возвращает объект с текущими данными покупателя
+   * Возвращает объект с текущими данными покупателя в формате интерфейса IBuyer
    * @returns {IBuyer} - объект с текущими данными покупателя
    */
   getData(): IBuyer {
@@ -63,7 +67,7 @@ export class Buyer {
   }
 
   /**
-   * Возвращает: объект, где ключи — поля `IBuyer`, а значения — сообщения об ошибках (если поле невалидно). 
+   * Выполняет валидацию данных покупателя
    * Если поле валидно, оно отсутствует в объекте
    * @returns { 
    *  payment?: string; 
@@ -71,7 +75,7 @@ export class Buyer {
    *  string; 
    *  phone?: string;
    *  address?: string; 
-   * } - ключи — поля `IBuyer`, значения — сообщения об ошибках
+   * } - объект, где ключи — поля `IBuyer`, а значения — сообщения об ошибках (если поле невалидно).
    */
   validate(): {
     payment?: string;

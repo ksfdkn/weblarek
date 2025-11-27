@@ -134,8 +134,8 @@ constructor()
 ```
 
 Поля класса:  
-`private products: IProduct[] = []` - массив всех товаров в каталоге;  
-`private selectedProduct: IProduct | null = null` - товар, выбранный для подробного отображения (может быть null, если ничего не выбрано).
+`private products: IProduct[]` - массив всех товаров в каталоге;  
+`private selectedProduct: IProduct | null` - товар, выбранный для подробного отображения (может быть null, если ничего не выбрано).
 
 Методы:
 1. `setProducts(products: IProduct[]): void`
@@ -166,7 +166,7 @@ constructor()
 ```
 
 Поле класса:  
-`private items: IProduct[] = []` — массив товаров в корзине.
+`private items: IProduct[]` — массив товаров в корзине.
 
 Методы:
 1. `getItems(): IProduct[]`
@@ -197,10 +197,10 @@ constructor()
 Назначение: хранение и управление персональными данными покупателя, включая валидацию введённых значений.
 
 Поля класса:  
-`private payment: TPayment | string = ''` — способ оплаты;  
-`private email: string = ''` — email покупателя;  
-`private phone: string = ''` — телефон;  
-`private address: string = ''` — адрес доставки.
+`private payment: TPayment | string` — способ оплаты;  
+`private email: string` — email покупателя;  
+`private phone: string` — телефон;  
+`private address: string` — адрес доставки.
 
 Методы:
 1. `setPayment(payment: TPayment): void`
@@ -241,3 +241,33 @@ constructor()
     2. `email`: не пустая строка;
     3. `phone`: не пустая строка;
     4. `address`: не пустая строка.
+
+### Слой коммуникации
+#### Класс `CommunicationApi`  
+Назначение: коммуникационный слой приложения, отвечающий за взаимодействие с серверным `API`.  
+
+Конструктор:
+
+```
+constructor()
+```
+
+Логика:  
+Вызывает метод `initApi()` для создания экземпляра `IApi`. Сохраняет клиент `API` в приватном поле `this.api`.  
+
+Поле класса:  
+`private api: IApi` - хранит экземпляр API‑клиента, через который выполняются все HTTP‑запросы.  
+
+Методы:  
+1. `initApi(): IApi`  
+  - Назначение: инициализирует API‑клиент на основе `API_URL`.
+  - Возвращает: экземпляр `IApi`.
+  - Бросает `Error`, если `API_URL` не задан в константах.
+
+2. `getProducts(): Promise<IProduct[]>`
+  - Назначение: загружает каталог товаров с сервера.
+  - Возвращает: промис с массивом товаров типа `IProduct[]`.
+
+3. `sendOrder(order: IRequest): Promise<IResponse>`
+  - Назначение: отправляет данные заказа на сервер.
+  - Возвращает: промис с ответом сервера типа `IResponse` (содержит `id` заказа и `total` сумму).
