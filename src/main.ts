@@ -9,7 +9,7 @@ import { IProduct, isTPayment } from './types';
 const api = new CommunicationApi();
 const catalog = new ProductCatalog();
 const cart = new ShoppingCart();
-const buyer = new Buyer(); 
+const buyer = new Buyer();
 let products: IProduct[] = [];
 //const products = apiProducts.items;
 
@@ -20,24 +20,39 @@ try {
 }
 
 catalog.setProducts(products);
-console.log("Массив товаров из каталога: ", catalog.getProducts());
+console.log("Массив товаров из каталога (setProducts и getProducts): ", catalog.getProducts());
 
 const product = catalog.getProductById("c101ab44-ed99-4a54-990d-47aa2bb4e7d9");
-console.log("Карточка товара:", product);
+console.log("Карточка товара (getProductById):", catalog.getProductById("c101ab44-ed99-4a54-990d-47aa2bb4e7d9"));
 
 if (product) {
-  cart.addItem(product);
-  
-  console.log("Корзина:", cart.getItems());
-  console.log("Стоимость всех товаров:", cart.getTotalPrice());
-} else {
-  console.log("Карточка товара не найдена")
+  catalog.setSelectedProduct(product);
+  console.log("Карточка товара для детального просмотра (setSelectedProduct и getSelectedProduct):", catalog.getSelectedProduct());
 }
+
+console.log("--- --- --- --- --- --- --- --- --- --- --- --- --- ---");
+
+if (product) {
+  console.log("Добавили товар в корзину (addItem)")
+  cart.addItem(product);
+  //cart.addItem(product);
+}
+
+console.log("Корзина (getItems):", cart.getItems());
+console.log("Стоимость всех товаров (getTotalPrice):", cart.getTotalPrice());
 
 /*if (product !== undefined) {
   cart.removeItem(product);
   console.log("Корзина:", cart.getItems());
 }*/
+
+console.log("Количество товаров в корзине (getItemCount): ", cart.getItemCount());
+console.log("Проверить наличие товара (hasItemById): ", cart.hasItemById("c101ab44-ed99-4a54-990d-47aa2bb4e7d9"));
+
+cart.clear();
+console.log("Очистили корзину (clear и getItems): ", cart.getItems());
+
+console.log("--- --- --- --- --- --- --- --- --- --- --- --- --- ---");
 
 const payment = "online";
 
@@ -47,9 +62,9 @@ if (isTPayment(payment)) {
 buyer.setEmail("email");
 
 
-console.log("Покупатель:", buyer.getData());
-console.log("Валидация покупателя:", buyer.validate());
+console.log("Покупатель (setPayment, setEmail, getData):", buyer.getData());
+console.log("Валидация покупателя (validate):", buyer.validate());
 
 buyer.clear();
-console.log("Удалили покупателя");
-console.log("Валидация покупателя:", buyer.validate());
+console.log("Удалили покупателя (clear)");
+console.log("Валидация покупателя: (validate)", buyer.validate());

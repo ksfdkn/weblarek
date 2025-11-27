@@ -1,5 +1,5 @@
 export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
-export type TPayment = 'online' | 'cash'; 
+export type TPayment = 'online' | 'cash';
 // если нужно, то `online` поменяю на `card`
 // просто в postman увидела `payment: online`
 
@@ -42,5 +42,5 @@ export interface IResponse {
 // хочу оставить ее, вдруг понадобиться когда-нибудь :)
 // пы.сы. вроде как понадобилась, чтобы при сохранении мы не могли передавать любой string
 export function isTPayment(value: string): value is TPayment {
-  return value === 'online' || value === 'cash';
+    return value === 'online' || value === 'cash';
 }

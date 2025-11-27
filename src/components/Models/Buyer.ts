@@ -4,12 +4,12 @@ import { IBuyer, TPayment } from "../../types";
  * Класс Buyer представляет модель данных покупателя
  */
 export class Buyer {
-  private payment: TPayment| string = "";
+  private payment: TPayment | string = "";
   private email: string = "";
   private phone: string = "";
   private address: string = "";
 
-  // нужен ли здесь конструктор или я неправильно поняла наставника?
+  // не очень поняла наставника, поэтому где-то есть конструктор в моделяз, а где-то нет
 
   /**
    * Обновляет поле `payment`

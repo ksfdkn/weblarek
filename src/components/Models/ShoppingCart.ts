@@ -6,8 +6,6 @@ import { IProduct } from "../../types";
 export class ShoppingCart {
   private items: IProduct[] = [];
 
-  // нужны ли конструкторы в классах каталога и корзины? или наоборо нужно
-  // вернуть конструктов в класс для покупателя?
   /**
    * Конструктор класса инициализирует пустую корзину (массив items)
    */
@@ -65,7 +63,7 @@ export class ShoppingCart {
    */
   getTotalPrice(): number {
     return this.items.reduce<number>((total: number, item) => {
-      if(item.price !== null) {
+      if (item.price !== null) {
         return total + item.price;
       }
       return total;
