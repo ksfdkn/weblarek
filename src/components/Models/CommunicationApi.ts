@@ -1,4 +1,4 @@
-import { IApi, IProduct, IProductsResponse, IRequest, IResponse } from "../../types";
+import { IApi, IProduct, IProductsResponse, IOrderRequest, IOrderResponse } from "../../types";
 import { API_URL } from "../../utils/constants";
 import { Api } from "../base/Api";
 
@@ -51,13 +51,13 @@ export class CommunicationApi {
 
   //в теории очень сухо говорится об этом методе. просто передать данные
   /**
-   * Выполняет POST‑запрос к `/order/` с данными заказа `order: IRequest`
-   * @param order {IRequest} - данные заказа
-   * @returns {Promise<IResponse>} - подтверждение от сервера `{id, total}`
+   * Выполняет POST‑запрос к `/order/` с данными заказа `order: IOrderRequest`
+   * @param order {IOrderRequest} - данные заказа
+   * @returns {Promise<IOrderResponse>} - подтверждение от сервера `{id, total}`
    */
-  async sendOrder(order: IRequest): Promise<IResponse> {
+  async sendOrder(order: IOrderRequest): Promise<IOrderResponse> {
     try {
-      return await this.api.post<IResponse>("/order/", order)
+      return await this.api.post<IOrderResponse>("/order/", order)
     } catch (error) {
       console.error("Ошибка при отправке заказа:", error);
       throw error;

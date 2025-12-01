@@ -27,12 +27,12 @@ export interface IProductsResponse  {
     items: IProduct[];
 }
 
-export interface IRequest extends IBuyer {
+export interface IOrderRequest extends IBuyer {
     total: number;
     items: string[];
 }
 
-export interface IResponse {
+export interface IOrderResponse {
     id: string;
     total: number;
 }
