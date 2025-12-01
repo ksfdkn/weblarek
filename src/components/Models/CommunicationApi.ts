@@ -1,4 +1,4 @@
-import { IApi, IProduct, IProductsResponce, IRequest, IResponse } from "../../types";
+import { IApi, IProduct, IProductsResponse, IRequest, IResponse } from "../../types";
 import { API_URL } from "../../utils/constants";
 import { Api } from "../base/Api";
 
@@ -41,7 +41,7 @@ export class CommunicationApi {
    */
   async getProducts(): Promise<IProduct[]> {
     try {
-      const response = await this.api.get<IProductsResponce>("/product/");
+      const response = await this.api.get<IProductsResponse>("/product/");
       return response.items;
     } catch (error) {
       console.error("Ошибка при загрузке товаров:", error);
