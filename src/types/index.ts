@@ -37,6 +37,13 @@ export interface IOrderResponse {
     total: number;
 }
 
+export interface ValidationErrors {
+    payment?: string;
+    email?: string;
+    phone?: string;
+    address?: string;
+}
+
 export function isTPayment(value: string): value is TPayment {
     return value === 'online' || value === 'cash';
 }

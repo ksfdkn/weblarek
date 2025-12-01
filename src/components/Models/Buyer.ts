@@ -1,4 +1,4 @@
-import { IBuyer, TPayment } from "../../types";
+import { IBuyer, TPayment, ValidationErrors } from "../../types";
 
 /**
  * Класс Buyer представляет модель данных покупателя
@@ -8,8 +8,6 @@ export class Buyer {
   private email: string = "";
   private phone: string = "";
   private address: string = "";
-
-  // не очень поняла наставника, поэтому где-то есть конструктор в моделяз, а где-то нет
 
   /**
    * Обновляет поле `payment`
@@ -69,26 +67,10 @@ export class Buyer {
   /**
    * Выполняет валидацию данных покупателя
    * Если поле валидно, оно отсутствует в объекте
-   * @returns { 
-   *  payment?: string; 
-   *  email?: 
-   *  string; 
-   *  phone?: string;
-   *  address?: string; 
-   * } - объект, где ключи — поля `IBuyer`, а значения — сообщения об ошибках (если поле невалидно).
+   * @returns {ValidationErrors} - объект, где ключи — поля `IBuyer`, а значения — сообщения об ошибках (если поле невалидно).
    */
-  validate(): {
-    payment?: string;
-    email?: string;
-    phone?: string;
-    address?: string;
-  } {
-    const errors: {
-      payment?: string;
-      email?: string;
-      phone?: string;
-      address?: string;
-    } = {};
+  validate(): ValidationErrors {
+    const errors: ValidationErrors = {};
 
     if (!this.payment) {
       errors.payment = "Укажите вид оплаты";
