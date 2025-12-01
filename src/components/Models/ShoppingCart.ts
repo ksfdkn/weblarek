@@ -7,13 +7,6 @@ export class ShoppingCart {
   private items: IProduct[] = [];
 
   /**
-   * Конструктор класса инициализирует пустую корзину (массив items)
-   */
-  constructor() {
-    this.items = [];
-  }
-
-  /**
    * Возвращает список товаров в корзине
    * @returns {IProduct[]} - список товаров в корзине
    */
