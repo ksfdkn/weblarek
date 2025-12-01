@@ -10,14 +10,9 @@ export class ProductCatalog {
   /**
    * Заменяет текущий каталог на переданный массив
    * @param products {IProduct[]} - массив товаров для сохранения
-   * @throws {Error} - если `products` не массив
    */
   setProducts(products: IProduct[]): void {
-    if (Array.isArray(products)) {
-      this.products = products
-    } else {
-      throw new Error("Параметр products должен быть массивом");
-    }
+    this.products = products;
   }
 
   /**
