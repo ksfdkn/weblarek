@@ -8,14 +8,6 @@ export class ProductCatalog {
   private selectedProduct: IProduct | null = null;
 
   /**
-   * Конструктор класса инициализирует пустой каталог товаров и отсутствие выбранного товара
-   */
-  constructor() {
-    this.products = [];
-    this.selectedProduct = null;
-  }
-
-  /**
    * Заменяет текущий каталог на переданный массив
    * @param products {IProduct[]} - массив товаров для сохранения
    * @throws {Error} - если `products` не массив
