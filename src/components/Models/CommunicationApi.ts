@@ -1,6 +1,4 @@
 import { IApi, IProduct, IProductsResponse, IOrderRequest, IOrderResponse } from "../../types";
-import { API_URL } from "../../utils/constants";
-import { Api } from "../base/Api";
 
 /**
  * Класс CommunicationApi — коммуникационный слой приложения
@@ -13,25 +11,10 @@ export class CommunicationApi {
   private api: IApi;
 
   /**
-   * Конструктор класса инициализирует API-клиент через метод `initApi()`
+   * Конструктор класса принимает инициализированный API‑клиент
    */
-  constructor() {
-    this.api = this.initApi();
-  }
-
-  /**
-   * Инициализует API-клиент на основе `API_URL`
-   * @returns {IApi} - экземпляр API-клиента
-   * @throws {Error} - `API_URL` не задан в константах
-   */
-  private initApi(): IApi {
-    const baseUrl = API_URL;
-
-    if (!baseUrl) {
-      throw new Error("API_URL не задан в константах");
-    }
-
-    return new Api(baseUrl);
+  constructor(api: IApi) {
+    this.api = api;
   }
 
   /**
@@ -49,7 +32,6 @@ export class CommunicationApi {
     }
   }
 
-  //в теории очень сухо говорится об этом методе. просто передать данные
   /**
    * Выполняет POST‑запрос к `/order/` с данными заказа `order: IOrderRequest`
    * @param order {IOrderRequest} - данные заказа

@@ -1,12 +1,15 @@
+import { Api } from './components/base/Api';
 import { Buyer } from './components/Models/Buyer';
 import { CommunicationApi } from './components/Models/CommunicationApi';
 import { ProductCatalog } from './components/Models/ProductCatalog';
 import { ShoppingCart } from './components/Models/ShoppingCart';
 import './scss/styles.scss';
 import { IProduct, isTPayment } from './types';
+import { API_URL } from './utils/constants';
 //import { apiProducts } from './utils/data';
 
-const api = new CommunicationApi();
+const api = new Api(API_URL);
+const communicationApi = new CommunicationApi(api);
 const catalog = new ProductCatalog();
 const cart = new ShoppingCart();
 const buyer = new Buyer();
@@ -14,7 +17,7 @@ let products: IProduct[] = [];
 //const products = apiProducts.items;
 
 try {
-  products = await api.getProducts();
+  products = await communicationApi.getProducts();
 } catch (error) {
   console.error("Ошибка при загрузке товаров:", error);
 }

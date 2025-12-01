@@ -293,26 +293,23 @@ constructor()
 Конструктор:
 
 ```
-constructor()
+constructor(api: IApi)
 ```
 
+Параметры:  
+`api: IApi` - готовый экземпляр API‑клиента.  
+
 Логика:  
-Вызывает метод `initApi()` для создания экземпляра `IApi`. Сохраняет клиент `API` в приватном поле `this.api`.  
+Сохраняет переданный экземпляр `IApi` в приватном поле `this.api`.  
 
 Поле класса:  
 `private api: IApi` - хранит экземпляр API‑клиента, через который выполняются все HTTP‑запросы.  
 
 Методы:  
-1. `initApi(): IApi`  
-  - Назначение: инициализирует API‑клиент на основе `API_URL`.
-  - Возвращает: экземпляр `IApi`.
-  - Бросает `Error`, если `API_URL` не задан в константах.
-
-2. `getProducts(): Promise<IProduct[]>`
+1. `getProducts(): Promise<IProduct[]>`
   - Назначение: загружает каталог товаров с сервера.
   - Возвращает: промис с массивом товаров типа `IProduct[]`.
 
-3. `sendOrder(order: IOrderRequest): Promise<IOrderResponse>`
+2. `sendOrder(order: IOrderRequest): Promise<IOrderResponse>`
   - Назначение: отправляет данные заказа на сервер.
   - Возвращает: промис с ответом сервера типа `IOrderResponse` (содержит `id` заказа и `total` сумму).
-
