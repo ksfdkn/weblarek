@@ -1,10 +1,13 @@
 import { IProduct } from "../../types";
+import { IEvents } from "../base/Events";
 
 /**
  * Класс ShoppingCart представляет модель данных корзины покупок
  */
 export class ShoppingCart {
   private items: IProduct[] = [];
+
+  constructor (private events: IEvents) {}
 
   /**
    * Возвращает список товаров в корзине
@@ -29,6 +32,7 @@ export class ShoppingCart {
     }
 
     this.items.push(product);
+    this.events.emit("cart:changed", this.items);
   }
 
   /**
@@ -40,6 +44,7 @@ export class ShoppingCart {
 
     if (index !== -1) {
       this.items.splice(index, 1);
+      this.events.emit("cart:changed", this.items);
     }
   }
 
@@ -48,6 +53,7 @@ export class ShoppingCart {
    */
   clear(): void {
     this.items = [];
+    this.events.emit("cart:changed", this.items);
   }
 
   /**

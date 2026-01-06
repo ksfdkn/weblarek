@@ -1,4 +1,5 @@
 import { IProduct } from "../../types";
+import { IEvents } from "../base/Events";
 
 /**
  * Класс ProductCatalog представляет модель данных каталога товаров
@@ -7,12 +8,15 @@ export class ProductCatalog {
   private products: IProduct[] = [];
   private selectedProduct: IProduct | null = null;
 
+  constructor(private events: IEvents) {}
+
   /**
    * Заменяет текущий каталог на переданный массив
    * @param products {IProduct[]} - массив товаров для сохранения
    */
   setProducts(products: IProduct[]): void {
     this.products = products;
+    this.events.emit("catalog:products:updated", this.products);
   }
 
   /**

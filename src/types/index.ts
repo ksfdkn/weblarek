@@ -1,3 +1,5 @@
+import { categoryMap } from "../utils/constants";
+
 export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
 export type TPayment = 'online' | 'cash';
 
@@ -42,6 +44,14 @@ export interface ValidationErrors {
     email?: string;
     phone?: string;
     address?: string;
+}
+
+export type CategoryKey = keyof typeof categoryMap;
+
+export interface ICardActions {
+    onClick?: (event: MouseEvent) => void;
+    onAddToCart?: (event: MouseEvent) => void;
+    onDelete?: (event: MouseEvent) => void;
 }
 
 export function isTPayment(value: string): value is TPayment {
