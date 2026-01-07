@@ -1,6 +1,7 @@
 import { Component } from "../base/Component";
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
+import { AppEvent } from "../Events/Events";
 
 type TModelContent = HTMLElement;
 
@@ -15,17 +16,16 @@ export class Modal extends Component<TModelContent> {
     this.modalContent = ensureElement<HTMLElement>(".modal__content", this.container);
 
     this.closeButton.addEventListener("click", () => {
-      this.events.emit("modal:closed");
+      this.events.emit(AppEvent.ModalClosed);
     });
   }
 
   set content (value: TModelContent) {
-    this.modalContent.appendChild(value);
+    this.content = value;
   }
 
   open (content: TModelContent): void {
-    this.render();
-    this.content = content;
+    this.render(this.modalContent.appendChild(content));
     this.container.classList.add("modal_active");
   }
 

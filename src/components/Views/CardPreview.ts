@@ -3,6 +3,7 @@ import { ensureElement } from "../../utils/utils";
 import { categoryMap } from "../../utils/constants";
 import { IProduct, CategoryKey } from "../../types";
 import { IEvents } from "../base/Events";
+import { AppEvent } from "../Events/Events";
 
 export type TCardPreview = Omit<IProduct, "id">;
 
@@ -21,7 +22,7 @@ export class CardPreview extends Card<TCardPreview> {
     this.buttonElement = ensureElement<HTMLButtonElement>(".card__button", this.container);
 
    this.buttonElement.addEventListener("click", () => {
-      this.events.emit('cart:toggleItem');
+      this.events.emit(AppEvent.CartToggleItem);
     })
   }
 

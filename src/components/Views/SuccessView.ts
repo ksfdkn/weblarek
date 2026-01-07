@@ -1,6 +1,7 @@
 import { Component } from "../base/Component";
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
+import { AppEvent } from "../Events/Events";
 
 interface ISuccessView {
   total: number;
@@ -17,7 +18,7 @@ export class SuccessView extends Component<ISuccessView> {
     this.closeButton = ensureElement<HTMLButtonElement>(".order-success__close", this.container);
 
     this.closeButton.addEventListener("click", () => {
-      this.events.emit("success:closed");
+      this.events.emit(AppEvent.SuccessClosed);
     });
   }
 

@@ -1,5 +1,6 @@
 import { IProduct } from "../../types";
 import { IEvents } from "../base/Events";
+import { AppEvent } from "../Events/Events";
 
 /**
  * Класс ProductCatalog представляет модель данных каталога товаров
@@ -16,7 +17,7 @@ export class ProductCatalog {
    */
   setProducts(products: IProduct[]): void {
     this.products = products;
-    this.events.emit("catalog:products:updated", this.products);
+    this.events.emit(AppEvent.CatalogProductsUpdated, this.products);
   }
 
   /**

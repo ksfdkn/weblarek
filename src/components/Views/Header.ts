@@ -1,6 +1,7 @@
 import { Component } from "../base/Component";
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
+import { AppEvent } from "../Events/Events";
 
 interface THeader {
   counter: number;
@@ -17,7 +18,7 @@ export class Header extends Component<THeader> {
     this.basketButton = ensureElement<HTMLButtonElement>(".header__basket", this.container);
 
     this.basketButton.addEventListener("click", () => {
-      this.events.emit('basket:opened');
+      this.events.emit(AppEvent.BasketOpened);
     });
   }
 

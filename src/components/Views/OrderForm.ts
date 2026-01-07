@@ -1,11 +1,13 @@
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
 import { BaseForm } from "./BaseForm";
+import { AppEvent } from "../Events/Events";
 
 interface IOrderForm {
   address: string;
   payment: string;
   errors?: string;
+  isValid?: boolean;
 }
 
 export class OrderForm extends BaseForm<IOrderForm> {
@@ -22,35 +24,39 @@ export class OrderForm extends BaseForm<IOrderForm> {
     this.submitButton = ensureElement<HTMLButtonElement>('button[type="submit"]', this.container);
 
     this.addressInputElement.addEventListener("input", () => {
-      events.emit("form:changed", {
+      events.emit(AppEvent.FormChanged, {
         field: "address",
         value: this.addressInputElement.value,
       });
     });
 
     this.cardButton.addEventListener("click", () => {
-      this.events.emit("form:changed", {
+      this.events.emit(AppEvent.FormChanged, {
         field: "payment",
         value: "online",
       });
     });
 
     this.cashButton.addEventListener("click", () => {
-      this.events.emit("form:changed", {
+      this.events.emit(AppEvent.FormChanged, {
         field: "payment",
         value: "cash",
       });
     });
   }
 
-  set paymentState(value: "online" | "cash") {
+  set paymentState(value: string) {
     this.cardButton.classList.remove("button_alt-active");
     this.cashButton.classList.remove("button_alt-active");
 
-    if (value === 'online') {
+    if (value === "online") {
       this.cardButton.classList.add('button_alt-active');
-    } else {
+    } else if (value === "cash") {
       this.cashButton.classList.add('button_alt-active');
     }
+  }
+
+  set address (value: string) {
+    this.addressInputElement.value = value;
   }
 }

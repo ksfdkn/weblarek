@@ -51,8 +51,4 @@ export class Basket extends Component<IBasket> {
   set basketButtonEnabled (value: boolean) {
     this.basketButton.disabled = !value;
   }
-
-  render(): HTMLElement {
-    return this.container;
-  }
 }

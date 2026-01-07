@@ -1,5 +1,6 @@
 import { IProduct } from "../../types";
 import { IEvents } from "../base/Events";
+import { AppEvent } from "../Events/Events";
 
 /**
  * Класс ShoppingCart представляет модель данных корзины покупок
@@ -32,7 +33,7 @@ export class ShoppingCart {
     }
 
     this.items.push(product);
-    this.events.emit("cart:changed", this.items);
+    this.events.emit(AppEvent.CartChanged, this.items);
   }
 
   /**
@@ -44,7 +45,7 @@ export class ShoppingCart {
 
     if (index !== -1) {
       this.items.splice(index, 1);
-      this.events.emit("cart:changed", this.items);
+      this.events.emit(AppEvent.CartChanged, this.items);
     }
   }
 
@@ -53,7 +54,7 @@ export class ShoppingCart {
    */
   clear(): void {
     this.items = [];
-    this.events.emit("cart:changed", this.items);
+    this.events.emit(AppEvent.CartChanged, this.items);
   }
 
   /**

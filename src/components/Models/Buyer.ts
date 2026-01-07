@@ -1,5 +1,6 @@
 import { IBuyer, TPayment, ValidationErrors } from "../../types";
 import { IEvents } from "../base/Events"
+import { AppEvent } from "../Events/Events";
 
 /**
  * Класс Buyer представляет модель данных покупателя
@@ -18,7 +19,7 @@ export class Buyer {
    */
   setPayment(payment: TPayment): void {
     this.payment = payment;
-    this.events.emit("buyer:changed");
+    this.events.emit(AppEvent.BuyerChanged);
   }
 
   /**
@@ -27,7 +28,7 @@ export class Buyer {
    */
   setEmail(email: string): void {
     this.email = email;
-    this.events.emit("buyer:changed");
+    this.events.emit(AppEvent.BuyerChanged);
   }
 
   /**
@@ -36,7 +37,7 @@ export class Buyer {
    */
   setPhone(phone: string): void {
     this.phone = phone;
-    this.events.emit("buyer:changed");
+    this.events.emit(AppEvent.BuyerChanged);
   }
 
   /**
@@ -45,7 +46,7 @@ export class Buyer {
    */
   setAddress(address: string): void {
     this.address = address;
-    this.events.emit("buyer:changed");
+    this.events.emit(AppEvent.BuyerChanged);
   }
 
   /**
@@ -69,6 +70,8 @@ export class Buyer {
     this.email = "";
     this.phone = "";
     this.address = "";
+
+    this.events.emit(AppEvent.BuyerCleared);
   }
 
   /**
