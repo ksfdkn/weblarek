@@ -23,7 +23,7 @@ export abstract class BaseForm<T> extends Component<T> {
       const formName = this.container.getAttribute("name");
 
       if(formName) {
-        this.events.emit(`${formName}:submit`);
+        this.events.emit(`${formName}:submitted`);
       }
     });
   }

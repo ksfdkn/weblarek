@@ -22,21 +22,21 @@ export class OrderForm extends BaseForm<IOrderForm> {
     this.submitButton = ensureElement<HTMLButtonElement>('button[type="submit"]', this.container);
 
     this.addressInputElement.addEventListener("input", () => {
-      events.emit("form:change", {
+      events.emit("form:changed", {
         field: "address",
         value: this.addressInputElement.value,
       });
     });
 
     this.cardButton.addEventListener("click", () => {
-      this.events.emit("form:change", {
+      this.events.emit("form:changed", {
         field: "payment",
         value: "online",
       });
     });
 
     this.cashButton.addEventListener("click", () => {
-      this.events.emit("form:change", {
+      this.events.emit("form:changed", {
         field: "payment",
         value: "cash",
       });

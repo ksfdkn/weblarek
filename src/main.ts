@@ -18,7 +18,6 @@ import { CardBasket } from './components/Views/CardBasket';
 import { OrderForm } from './components/Views/OrderForm';
 import { ContactsForm } from './components/Views/ContactsForm';
 import { SuccessView } from './components/Views/SuccessView';
-//import { apiProducts } from './utils/data';
 
 const api = new Api(API_URL);
 const communicationApi = new CommunicationApi(api);
@@ -107,6 +106,7 @@ events.on("modal:closed", () => {
 
 events.on("basket:opened", () => {
   modal.open(basket.render());
+  basket.basketButtonEnabled = cart.getItemCount() > 0;
 });
 
 events.on("cart:changed", (items: IProduct[]) => {
@@ -130,24 +130,22 @@ events.on("cart:changed", (items: IProduct[]) => {
 
   basket.basketPrice = cart.getTotalPrice();
   header.counter = cart.getItemCount();
+  basket.basketButtonEnabled = cart.getItemCount() > 0;
 });
 
-events.on("cardPreview:basketAddDelete", () => {
-  if (currentProduct) {
-    const isInCart = cart.hasItemById(currentProduct.id);
-    preview.buttonText = isInCart ? "Удалить из корзины" : "В корзину";
+events.on("cart:toggleItem", () => {
+  if (!currentProduct) return;
 
-    if (isInCart) {
-      cart.removeItem(currentProduct);
-      preview.buttonText = "В корзину";
-    } else {
-      cart.addItem(currentProduct);
-      preview.buttonText = "Удалить из корзины";
-    }
+  const isInCart = cart.hasItemById(currentProduct.id);
+  if (isInCart) {
+    cart.removeItem(currentProduct);
+  } else {
+    cart.addItem(currentProduct);
   }
 
-  console.log(cart.getItemCount());
   header.counter = cart.getItemCount();
+
+  modal.close();
 });
 
 events.on("basket:order", () => {
@@ -159,7 +157,7 @@ events.on("basket:order", () => {
   modal.open(orderForm.render());
 });
 
-events.on("form:change", (data: { field: string, value: string }) => {
+events.on("form:changed", (data: { field: string, value: string }) => {
   switch (data.field) {
     case "address":
       buyer.setAddress(data.value);
@@ -221,12 +219,12 @@ events.on("buyer:changed", () => {
   contactsForm.isValid = contactsFormData.isValid;
 });
 
-events.on("order:submit", () => {
+events.on("order:submitted", () => {
   modal.clear();
   modal.open(contactsForm.render());
 });
 
-events.on("contacts:submit", () => {
+events.on("contacts:submitted", () => {
   const buyerData = buyer.getData();
   const validationErrors = buyer.validate();
 
@@ -238,7 +236,7 @@ events.on("contacts:submit", () => {
   const orderData: IOrderRequest = {
     ...buyerData,
     total: cart.getTotalPrice(),
-    items: cart.getItems().map(item =>item.id),
+    items: cart.getItems().map(item => item.id),
   }
 
   communicationApi.sendOrder(orderData).then((response: IOrderResponse) => {
@@ -256,7 +254,7 @@ events.on("contacts:submit", () => {
   });
 });
 
-events.on("success:close", () => {
+events.on("success:closed", () => {
   modal.close();
 });
 
@@ -273,59 +271,3 @@ try {
 } catch (error) {
   console.error("Ошибка при загрузке товаров:", error);
 }
-
-//const products = apiProducts.items;
-
-//catalog.setProducts(products);
-//console.log("Массив товаров из каталога (setProducts и getProducts): ", catalog.getProducts());
-
-
-
-/*
-const product = catalog.getProductById("c101ab44-ed99-4a54-990d-47aa2bb4e7d9");
-console.log("Карточка товара (getProductById):", catalog.getProductById("c101ab44-ed99-4a54-990d-47aa2bb4e7d9"));
-
-if (product) {
-  catalog.setSelectedProduct(product);
-  console.log("Карточка товара для детального просмотра (setSelectedProduct и getSelectedProduct):", catalog.getSelectedProduct());
-}
-
-console.log("--- --- --- --- --- --- --- --- --- --- --- --- --- ---");
-
-if (product) {
-  console.log("Добавили товар в корзину (addItem)")
-  cart.addItem(product);
-  //cart.addItem(product);
-}
-
-console.log("Корзина (getItems):", cart.getItems());
-console.log("Стоимость всех товаров (getTotalPrice):", cart.getTotalPrice());
-
-/*if (product !== undefined) {
-  cart.removeItem(product);
-  console.log("Корзина:", cart.getItems());
-}
-
-console.log("Количество товаров в корзине (getItemCount): ", cart.getItemCount());
-console.log("Проверить наличие товара (hasItemById): ", cart.hasItemById("c101ab44-ed99-4a54-990d-47aa2bb4e7d9"));
-
-cart.clear();
-console.log("Очистили корзину (clear и getItems): ", cart.getItems());
-
-console.log("--- --- --- --- --- --- --- --- --- --- --- --- --- ---");
-
-const payment = "online";
-
-if (isTPayment(payment)) {
-  buyer.setPayment(payment);
-}
-buyer.setEmail("email");
-
-
-console.log("Покупатель (setPayment, setEmail, getData):", buyer.getData());
-console.log("Валидация покупателя (validate):", buyer.validate());
-
-buyer.clear();
-console.log("Удалили покупателя (clear)");
-console.log("Валидация покупателя: (validate)", buyer.validate());
-*/

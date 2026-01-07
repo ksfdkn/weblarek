@@ -5,6 +5,7 @@ import { ICardActions } from "../../types";
 interface IBasket {
   basketList: HTMLElement[];
   basketPrice: string;
+  basketButtonEnabled: boolean;
 }
 
 export class Basket extends Component<IBasket> {
@@ -45,6 +46,10 @@ export class Basket extends Component<IBasket> {
       this.basketPriceElement.textContent =
         value !== null ? `${value} синапсов` : "0 синапсов";
     }
+  }
+
+  set basketButtonEnabled (value: boolean) {
+    this.basketButton.disabled = !value;
   }
 
   render(): HTMLElement {
