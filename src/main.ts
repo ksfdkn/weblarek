@@ -23,12 +23,16 @@ import { AppEvent, AppEventMap } from './components/Events/Events';
 const api = new Api(API_URL);
 const communicationApi = new CommunicationApi(api);
 const events = new EventEmitter();
+
+/** Модели данных. */
 const productsModel = new ProductCatalog(events);
 const cart = new ShoppingCart(events);
 const buyer = new Buyer(events);
 
+/** Текущий выбранный товар. */
 let currentProduct: IProduct | null = null;
 
+/** Представления. */
 let gallery: Gallery | null = null;
 let header: Header | null = null;
 let modal: Modal | null = null;
@@ -38,6 +42,7 @@ let orderForm: OrderForm | null = null;
 let contactsForm: ContactsForm | null = null;
 let success: SuccessView | null = null;
 
+/** Шаблоны. */
 let cardCatalogTemplate: HTMLTemplateElement | null = null;
 let previewCardTemplate: HTMLTemplateElement | null = null;
 let cardBasketTemplate: HTMLTemplateElement | null = null;
@@ -46,6 +51,10 @@ let orderFormTemplate: HTMLTemplateElement | null = null;
 let contactsFormTemplate: HTMLTemplateElement | null = null;
 let successTemplate: HTMLTemplateElement | null = null;
 
+/**
+ * Инициализирует приложение: загружает шаблоны, настраивает компоненты,
+ * подписывается на события и загружает товары.
+ */
 function init() {
   cardCatalogTemplate = document.getElementById("card-catalog") as HTMLTemplateElement;
   previewCardTemplate = document.getElementById("card-preview") as HTMLTemplateElement;
@@ -88,6 +97,9 @@ function init() {
   loadProducts();
 }
 
+/**
+ * Подписывается на события приложения и связывает их с обработчиками.
+ */
 function setupEventListeners() {
   events.on<AppEventMap[AppEvent.CatalogProductsUpdated]>(
     AppEvent.CatalogProductsUpdated,
@@ -160,6 +172,10 @@ function setupEventListeners() {
   events.on<{}>(AppEvent.SuccessClosed, () => modal?.close());
 }
 
+/**
+ * Асинхронно загружает список товаров из API,
+ * обрабатывает изображения и передаёт данные в модель каталога.
+ */
 async function loadProducts() {
   try {
     const products = await communicationApi.getProducts();
@@ -176,6 +192,10 @@ async function loadProducts() {
   }
 }
 
+/**
+ * Отрисовывает каталог товаров на основе переданных данных.
+ * @param products - массив товаров для отображения
+ */
 function renderCatalog(products: IProduct[]) {
   if (!gallery || !cardCatalogTemplate) return;
 
@@ -191,6 +211,13 @@ function renderCatalog(products: IProduct[]) {
   gallery.render({ catalog: itemCards });
 }
 
+/**
+ * Обрабатывает выбор товара пользователем:
+ * - сохраняет выбранный товар в `currentProduct`;
+ * - отображает предпросмотр товара в модальном окне;
+ * - устанавливает текст кнопки («Купить»/«Удалить из корзины»).
+ * @param product - выбранный товар
+ */
 function handleCardSelect(product: IProduct) {
   if (!preview || !modal || !previewCardTemplate) return;
 
@@ -215,6 +242,10 @@ function handleCardSelect(product: IProduct) {
   modal.open(preview.render());
 }
 
+/**
+ * Обрабатывает переключение состояния товара в корзине (добавить/удалить).
+ * Обновляет счётчик в шапке и закрывает модальное окно.
+ */
 function handleCartToggle() {
   if (!currentProduct || !header || !modal) return;
 
@@ -230,6 +261,11 @@ function handleCartToggle() {
   modal.close();
 }
 
+/**
+ * Начинает процесс оформления заказа:
+ * - очищает модальное окно;
+ * - открывает форму оформления заказа.
+ */
 function handleOrderStart() {
   if (!basket || !modal || cart.getItemCount() === 0) return;
 
@@ -237,6 +273,13 @@ function handleOrderStart() {
   modal.open(orderForm!.render());
 }
 
+/**
+ * Отрисовывает корзину с товарами:
+ * - создаёт карточки товаров в корзине;
+ * - обновляет итоговую сумму и счётчик в шапке;
+ * - управляет активностью кнопки оформления заказа.
+ * @param items - массив товаров в корзине
+ */
 function renderCart(items: IProduct[]) {
   if (!basket || !cardBasketTemplate || !header) {
     console.warn("basket, cardBasketTemplate или header не инициализированы");
@@ -258,6 +301,11 @@ function renderCart(items: IProduct[]) {
   basket.basketButtonEnabled = cart.getItemCount() > 0;
 }
 
+/**
+ * Обрабатывает изменение полей форм (адрес, способ оплаты, телефон, email).
+ * Передаёт данные в модель покупателя.
+ * @param data - объект с полями `field` (имя поля) и `value` (значение)
+ */
 function handleFormChange(data: { field: string; value: string }) {
   switch (data.field) {
     case "address":
@@ -282,6 +330,10 @@ function handleFormChange(data: { field: string; value: string }) {
   }
 }
 
+/**
+ * Отрисовывает формы оформления заказа и контактных данных
+ * с актуальными данными покупателя и сообщениями об ошибках валидации.
+ */
 function renderForms() {
   if (!orderForm || !contactsForm) return;
   const buyerData = buyer.getData();
@@ -312,6 +364,10 @@ function renderForms() {
   });
 }
 
+/**
+ * Очищает формы оформления заказа и контактных данных,
+ * сбрасывает состояние модели покупателя.
+ */
 function resetForms() {
   orderForm?.render({
     address: "",
@@ -332,6 +388,13 @@ function resetForms() {
   }
 }
 
+/**
+ * Обрабатывает отправку заказа:
+ * - проверяет валидность данных покупателя;
+ * - формирует объект заказа;
+ * - отправляет заказ через API;
+ * - отображает экран успеха или ошибки.
+ */
 function handleOrderSubmit() {
   if (!buyer || !communicationApi || !success || !modal) {
     console.error("Не все компоненты инициализированы: buyer, communicationApi, success или modal отсутствует");

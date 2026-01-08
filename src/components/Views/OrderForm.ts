@@ -10,9 +10,16 @@ interface IOrderForm {
   isValid?: boolean;
 }
 
+/**
+ * Форма оформления заказа.
+ * Отвечает за отображение поля адреса и кнопок способа оплаты, валидацию.
+ */
 export class OrderForm extends BaseForm<IOrderForm> {
+  /** Поле ввода адреса */
   protected addressInputElement: HTMLInputElement;
+  /** Кнопка выбора оплаты картой */
   protected cardButton: HTMLButtonElement;
+  /** Кнопка выбора оплаты наличными */
   protected cashButton: HTMLButtonElement;
 
   constructor(container: HTMLElement, events: IEvents) {
@@ -45,6 +52,11 @@ export class OrderForm extends BaseForm<IOrderForm> {
     });
   }
 
+  /**
+   * Устанавливает состояние кнопок оплаты (активна/неактивна).
+   * @param cardValid - валидность способа оплаты картой
+   * @param cashValid - валидность способа оплаты наличными
+   */
   set paymentState(value: string) {
     this.cardButton.classList.remove("button_alt-active");
     this.cashButton.classList.remove("button_alt-active");
@@ -56,6 +68,10 @@ export class OrderForm extends BaseForm<IOrderForm> {
     }
   }
 
+  /**
+   * Устанавливает адрес (вообще, нужно для очистки поля формы после повторных заказов).
+   * @param value - адрес
+   */
   set address (value: string) {
     this.addressInputElement.value = value;
   }

@@ -7,10 +7,24 @@ interface THeader {
   counter: number;
 }
 
+/**
+ * Компонент шапки приложения (header).
+ * Отвечает за:
+ * - отображение счётчика товаров в корзине;
+ * - обработку клика по кнопке корзины и эмитацию события открытия корзины.
+ */
 export class Header extends Component<THeader> {
+  /** Элемент отображения счётчика товаров в корзине (класс `.header__basket-counter`). */
   protected counterElement: HTMLElement;
+  /** Кнопка корзины в шапке (класс `.header__basket`). */
   protected basketButton: HTMLButtonElement;
 
+  /**
+   * Создаёт экземпляр компонента шапки.
+   *
+   * @param container - корневой HTMLElement шапки.
+   * @param events - экземпляр системы событий (`IEvents`) для отправки уведомлений.
+   */
   constructor (container: HTMLElement, protected events: IEvents) {
     super(container);
 
@@ -22,6 +36,11 @@ export class Header extends Component<THeader> {
     });
   }
 
+  /**
+   * Сеттер для обновления значения счётчика товаров в корзине.
+   *
+   * @param value - числовое значение количества товаров.
+   */
   set counter (value: number) {
     this.counterElement.textContent = String(value);
   }

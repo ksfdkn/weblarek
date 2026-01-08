@@ -5,10 +5,23 @@ import { IProduct, ICardActions, CategoryKey } from "../../types";
 
 export type TCardCatalog = Pick<IProduct, 'image' | "category"> & TCardData;
 
+/**
+ * Компонент карточки товара в каталоге.
+ * Отображает изображение, категорию и базовую информацию о товаре.
+ * Обеспечивает обработку клика по карточке.
+ */
 export class CardCatalog extends Card<TCardCatalog> {
+  /** Элемент изображения товара (класс `.card__image`). */
   protected imageElement: HTMLImageElement;
+  /** Элемент отображения категории товара (класс `.card__category`). */
   protected categoryElement: HTMLElement;
 
+  /**
+   * Создаёт экземпляр карточки товара для каталога.
+   *
+   * @param container - корневой HTMLElement карточки.
+   * @param actions - объект с действиями (опционально), содержит колбэк `onClick`.
+   */
   constructor (container: HTMLElement, actions?: ICardActions) {
     super(container);
 
@@ -20,10 +33,20 @@ export class CardCatalog extends Card<TCardCatalog> {
     }    
   }
 
+  /**
+   * Сеттер для установки изображения товара.
+   *
+   * @param value - URL изображения.
+   */
   set image(value: string) {
     this.setImage(this.imageElement, value, this.titleElement.textContent);
   }
 
+  /**
+   * Сеттер для установки категории товара.
+   *
+   * @param value - строка с названием категории.
+   */
   set category (value: string) {
     this.categoryElement.textContent = value;
 
