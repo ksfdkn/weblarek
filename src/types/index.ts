@@ -2,6 +2,12 @@ import { categoryMap } from "../utils/constants";
 
 export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
 export type TPayment = 'online' | 'cash';
+export type CategoryKey = keyof typeof categoryMap;
+export type TCardData = Pick<IProduct, 'title' | "price">;
+export type TCardBasket = TCardData;
+export type TCardCatalog = Pick<IProduct, 'image' | "category"> & TCardData;
+export type TCardPreview = Omit<IProduct, "id">;
+export type TModelContent = HTMLElement;
 
 export interface IApi {
     get<T extends object>(uri: string): Promise<T>;
@@ -46,12 +52,42 @@ export interface ValidationErrors {
     address?: string;
 }
 
-export type CategoryKey = keyof typeof categoryMap;
-
 export interface ICardActions {
     onClick?: (event: MouseEvent) => void;
     onAddToCart?: (event: MouseEvent) => void;
     onDelete?: (event: MouseEvent) => void;
+}
+
+export interface IBasket {
+  basketList: HTMLElement[];
+  basketPrice: string;
+  basketButtonEnabled: boolean;
+}
+
+export interface IContactsForm {
+  phone: string;
+  email: string;
+  errors?: string;
+  isValid?: boolean;
+}
+
+export interface GalleryData {
+  catalog: HTMLElement[];
+}
+
+export interface THeader {
+  counter: number;
+}
+
+export interface IOrderForm {
+  address: string;
+  payment: string;
+  errors?: string;
+  isValid?: boolean;
+}
+
+export interface ISuccessView {
+  total: number;
 }
 
 export function isTPayment(value: string): value is TPayment {

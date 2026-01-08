@@ -1,8 +1,6 @@
-import { Card, TCardData } from "./Card";
+import { Card } from "./Card";
 import { ensureElement } from "../../utils/utils";
-import { ICardActions } from "../../types";
-
-export type TCardBasket = TCardData;
+import { ICardActions, TCardBasket } from "../../types";
 
 /**
  * Компонент карточки товара в корзине.

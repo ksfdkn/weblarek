@@ -2,10 +2,7 @@ import { Component } from "../base/Component";
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
 import { AppEvent } from "../Events/Events";
-
-interface THeader {
-  counter: number;
-}
+import { THeader } from "../../types";
 
 /**
  * Компонент шапки приложения (header).

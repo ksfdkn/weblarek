@@ -2,13 +2,7 @@ import { BaseForm } from "./BaseForm";
 import { IEvents } from "../base/Events";
 import { ensureElement } from "../../utils/utils";
 import { AppEvent } from "../Events/Events";
-
-interface IContactsForm {
-  phone: string;
-  email: string;
-  errors?: string;
-  isValid?: boolean;
-}
+import { IContactsForm } from "../../types";
 
 /**
  * Компонент формы ввода контактных данных.

@@ -2,8 +2,7 @@ import { Component } from "../base/Component";
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
 import { AppEvent } from "../Events/Events";
-
-type TModelContent = HTMLElement;
+import { TModelContent } from "../../types";
 
 /**
  * Компонент модального окна.

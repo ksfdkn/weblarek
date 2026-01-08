@@ -2,13 +2,7 @@ import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
 import { BaseForm } from "./BaseForm";
 import { AppEvent } from "../Events/Events";
-
-interface IOrderForm {
-  address: string;
-  payment: string;
-  errors?: string;
-  isValid?: boolean;
-}
+import { IOrderForm } from "../../types";
 
 /**
  * Форма оформления заказа.

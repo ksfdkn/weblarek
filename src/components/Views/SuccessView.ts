@@ -2,11 +2,7 @@ import { Component } from "../base/Component";
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
 import { AppEvent } from "../Events/Events";
-
-interface ISuccessView {
-  total: number;
-}
-
+import { ISuccessView } from "../../types";
 
 /**
  * Компонент отображения успешного завершения заказа.

@@ -1,9 +1,7 @@
-import { Card, TCardData } from "./Card";
+import { Card} from "./Card";
 import { ensureElement } from "../../utils/utils";
 import { categoryMap } from "../../utils/constants";
-import { IProduct, ICardActions, CategoryKey } from "../../types";
-
-export type TCardCatalog = Pick<IProduct, 'image' | "category"> & TCardData;
+import { ICardActions, CategoryKey, TCardCatalog } from "../../types";
 
 /**
  * Компонент карточки товара в каталоге.

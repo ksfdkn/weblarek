@@ -1,12 +1,6 @@
 import { Component } from "../base/Component";
 import { ensureElement } from "../../utils/utils";
-import { ICardActions } from "../../types";
-
-interface IBasket {
-  basketList: HTMLElement[];
-  basketPrice: string;
-  basketButtonEnabled: boolean;
-}
+import { ICardActions, IBasket } from "../../types";
 
 /**
  * Компонент корзины покупок.

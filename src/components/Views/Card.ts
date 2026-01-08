@@ -1,8 +1,6 @@
 import { Component } from "../base/Component";
 import { ensureElement } from "../../utils/utils";
-import { IProduct } from "../../types";
-
-export type TCardData = Pick<IProduct, 'title' | "price">;
+import { TCardData } from "../../types";
 
 /**
  * Базовый класс для карточек товара (каталог, корзина, превью).

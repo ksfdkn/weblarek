@@ -1,11 +1,9 @@
 import { Card } from "./Card";
 import { ensureElement } from "../../utils/utils";
 import { categoryMap } from "../../utils/constants";
-import { IProduct, CategoryKey } from "../../types";
+import { CategoryKey, TCardPreview } from "../../types";
 import { IEvents } from "../base/Events";
 import { AppEvent } from "../Events/Events";
-
-export type TCardPreview = Omit<IProduct, "id">;
 
 /**
  * Компонент карточки-превью товара.

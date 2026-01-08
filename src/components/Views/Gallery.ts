@@ -1,8 +1,5 @@
 import { Component } from "../base/Component";
-
-interface GalleryData {
-  catalog: HTMLElement[];
-}
+import { GalleryData } from "../../types";
 
 /**
  * Компонент галереи (каталога) товаров.
