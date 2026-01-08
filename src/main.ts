@@ -51,6 +51,7 @@ let orderFormTemplate: HTMLTemplateElement | null = null;
 let contactsFormTemplate: HTMLTemplateElement | null = null;
 let successTemplate: HTMLTemplateElement | null = null;
 
+
 /**
  * Инициализирует приложение: загружает шаблоны, настраивает компоненты,
  * подписывается на события и загружает товары.
@@ -80,9 +81,9 @@ function init() {
   if (!modalContainer) throw new Error('Контейнер .modal-container  не найден в DOM');
   if (!headerBasketContainer) throw new Error('Контейнер .header__container не найден в DOM');
 
-  gallery = new Gallery(document.querySelector("main.gallery")!);
-  header = new Header(document.querySelector(".header__container")!, events);
-  modal = new Modal(document.getElementById("modal-container")!, events);
+  gallery = new Gallery(galleryContainer!);
+  header = new Header(headerBasketContainer!, events);
+  modal = new Modal(modalContainer!, events);
 
   basket = new Basket(cloneTemplate(basketTemplate!), {
     onAddToCart: () => events.emit(AppEvent.BasketOrder)

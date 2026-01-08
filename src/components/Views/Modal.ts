@@ -47,16 +47,30 @@ export class Modal extends Component<TModelContent> {
   open (content: TModelContent): void {
     this.render(this.modalContent.appendChild(content));
     this.container.classList.add("modal_active");
+
+    this.container.addEventListener('click', this.handleContainerClick);
+    this.modalContent.addEventListener('click', this.handleContentClick);
   }
 
   /** Закрывает модальное окно и очищает его содержимое. */
   close (): void {
     this.container.classList.remove("modal_active");
     this.modalContent.innerHTML = "";
+
+    this.container.removeEventListener('click', this.handleContainerClick);
+    this.modalContent.removeEventListener('click', this.handleContentClick);
   }
 
   /** Очищает содержимое модального окна без его закрытия. */
   clear (): void {
     this.modalContent.innerHTML = "";
   }
+
+  private handleContainerClick = () => {
+    this.close();
+  };
+
+  private handleContentClick = (event: MouseEvent) => {
+    event.stopPropagation();
+  };
 }
