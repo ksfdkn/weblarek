@@ -24,14 +24,6 @@ export class ShoppingCart {
    * @throws {Error} - если товар уже есть в корзине или не является объектом
    */
   addItem(product: IProduct): void {
-    if (typeof product !== "object" || product === null) {
-      throw new Error("Параметр product должен быть объектом");
-    }
-
-    if (this.hasItemById(product.id)) {
-      throw new Error("Товар уже находится в корзине");
-    }
-
     this.items.push(product);
     this.events.emit(AppEvent.CartChanged, this.items);
   }

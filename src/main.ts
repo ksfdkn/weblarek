@@ -220,6 +220,10 @@ function handleCardSelect(product: IProduct) {
   productsModel.setSelectedProduct(product);
 }
 
+/**
+ * Обрабатывает изменение выбранного товара и отображает его предпросмотр в модальном окне
+ * и устанавливает текст кнопки («Купить»/«Удалить из корзины»).
+ */
 function handlePreviewChanged() {
   const selectedProduct = productsModel.getSelectedProduct();
 
