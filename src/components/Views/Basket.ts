@@ -36,6 +36,8 @@ export class Basket extends Component<IBasket> {
       this.container
     );
 
+    this.basketButton.disabled = true;
+
     if (actions?.onAddToCart) {
       this.basketButton.addEventListener("click", actions.onAddToCart);
     }

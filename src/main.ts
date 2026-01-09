@@ -114,6 +114,8 @@ function setupEventListeners() {
 
   events.on<{}>(AppEvent.ModalClosed, () => modal?.close());
 
+  events.on<{}>(AppEvent.PreviewChanged, handlePreviewChanged);
+
   events.on<{}>(AppEvent.BasketOpened, () => {
     if (!modal || !basket) {
       console.error("Modal или Basket не инициализированы");
@@ -214,30 +216,32 @@ function renderCatalog(products: IProduct[]) {
 
 /**
  * Обрабатывает выбор товара пользователем:
- * - сохраняет выбранный товар в `currentProduct`;
- * - отображает предпросмотр товара в модальном окне;
- * - устанавливает текст кнопки («Купить»/«Удалить из корзины»).
+ * - сохраняет выбранный товар в `Model`;
  * @param product - выбранный товар
  */
 function handleCardSelect(product: IProduct) {
-  if (!preview || !modal || !previewCardTemplate) return;
+  productsModel.setSelectedProduct(product);
+}
 
-  currentProduct = product;
+function handlePreviewChanged() {
+  const selectedProduct = productsModel.getSelectedProduct();
+
+  if(!selectedProduct || !preview || !modal) return;
 
   preview.render({
-    title: currentProduct.title,
-    price: currentProduct.price,
-    image: currentProduct.image,
-    category: currentProduct.category,
-    description: currentProduct.description,
+    title: selectedProduct.title,
+    price: selectedProduct.price,
+    image: selectedProduct.image,
+    category: selectedProduct.category,
+    description: selectedProduct.description,
   });
 
-  const isInCart = cart.hasItemById(currentProduct.id);
+  const isInCart = cart.hasItemById(selectedProduct.id);
 
-  if (currentProduct.price === null) {
+  if(selectedProduct.price === null) {
     preview.buttonText = "Недоступно";
   } else {
-    preview.buttonText = isInCart ? "Удалить из корзины" : "Купить";
+    preview.buttonText = isInCart? "Удалить из корзины" : "Купить";
   }
 
   modal.open(preview.render());
@@ -248,13 +252,14 @@ function handleCardSelect(product: IProduct) {
  * Обновляет счётчик в шапке и закрывает модальное окно.
  */
 function handleCartToggle() {
-  if (!currentProduct || !header || !modal) return;
+  const selectedProduct = productsModel.getSelectedProduct();
+  if (!selectedProduct || !header || !modal) return;
 
-  const isInCart = cart.hasItemById(currentProduct.id);
+  const isInCart = cart.hasItemById(selectedProduct.id);
   if (isInCart) {
-    cart.removeItem(currentProduct);
+    cart.removeItem(selectedProduct);
   } else {
-    cart.addItem(currentProduct);
+    cart.addItem(selectedProduct);
   }
 
   header.counter = cart.getItemCount();

@@ -43,11 +43,8 @@ export class ProductCatalog {
    * @throws {Error} - `product` не `IProduct`
    */
   setSelectedProduct(product: IProduct): void {
-    if (typeof product === 'object' || product !== null) {
       this.selectedProduct = product;
-    } else {
-      throw new Error("Параметр product должен быть обьектом");
-    }
+      this.events.emit(AppEvent.PreviewChanged);
   }
 
   /**

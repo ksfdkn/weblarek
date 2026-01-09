@@ -4,6 +4,7 @@ export enum AppEvent {
   CatalogProductsUpdated = "catalog:products:updated",
   CardSelected = "card:selected",
   ModalClosed = "modal:closed",
+  PreviewChanged = "preview:changed",
   BasketOpened = "basket:opened",
   CartChanged = "cart:changed",
   CartToggleItem = "cart:toggleItem",
@@ -20,6 +21,7 @@ export type AppEventMap = {
   [AppEvent.CatalogProductsUpdated]: IProduct[];
   [AppEvent.CardSelected]: IProduct;
   [AppEvent.ModalClosed]: {};
+  [AppEvent.PreviewChanged]: {};
   [AppEvent.BasketOpened]: {};
   [AppEvent.CartChanged]: IProduct[];
   [AppEvent.CartToggleItem]: {};
