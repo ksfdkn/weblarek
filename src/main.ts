@@ -29,9 +29,6 @@ const productsModel = new ProductCatalog(events);
 const cart = new ShoppingCart(events);
 const buyer = new Buyer(events);
 
-/** Текущий выбранный товар. */
-let currentProduct: IProduct | null = null;
-
 /** Представления. */
 let gallery: Gallery | null = null;
 let header: Header | null = null;
