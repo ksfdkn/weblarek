@@ -531,11 +531,17 @@ constructor(api: IApi)
   - `AppEvent.BasketOpened` — открытие корзины.
   - `AppEvent.FormChanged` — изменение полей форм.
   - `AppEvent.CartToggleItem` — добавление/удаление товара из корзины.
+  - `AppEvent.PreviewChanged` — изменение состояния предпросмотра товара.
+  - `AppEvent.ModalClosed` — закрытие модального окна.
+  - `AppEvent.OrderSubmitted` — нажатие кнопки «Оформить заказ» в форме заказа.
+  - `AppEvent.ContactsSubmitted` — нажатие кнопки отправки в форме контактов.
+  - `AppEvent.SuccessClosed` — нажатие кнопки закрытия на экране успеха.
 
 - События от `Model` (изменение данных):
   - `AppEvent.CatalogProductsUpdated` — обновление каталога товаров.
   - `AppEvent.CartChanged` — изменение состава корзины.
-  - `AppEvent.BuyerChanged` — обновление данных покупателя.  
+  - `AppEvent.BuyerChanged` — обновление данных покупателя. 
+  - `AppEvent.BuyerCleared` — сброс данных покупателя. 
 
 Для каждого события презентер вызывает соответствующий обработчик (например, `handleCardSelect()`, `renderCart()`).
 
@@ -576,9 +582,8 @@ constructor(api: IApi)
 - Передаёт их в `Gallery` для отображения.
 
 ##### 3. `handleCardSelect(product)`
-- Сохраняет выбранный товар (`currentProduct`).
-- Отображает `CardPreview` с деталями товара в `Modal`.
-- Обновляет текст кнопки («Купить»/«Удалить»).
+- Cохраняет выбранный товар в `ProductCatalog`.
+- Вызывает `handlePreviewChanged()` для отображения предпросмотра.  
 
 ##### 4. `handleCartToggle()`
 - Добавляет/удаляет `currentProduct` из `ShoppingCart`.
@@ -595,3 +600,8 @@ constructor(api: IApi)
 - Собирает данные заказа (`IOrderRequest`).
 - Отправляет запрос через `CommunicationApi.sendOrder()`.
 - При успехе отображает `SuccessView`, очищает корзину и данные покупателя.
+
+##### 8. `handlePreviewChanged()`  
+- Получает текущий выбранный товар из `ProductCatalog`.
+- Обновляет содержимое `CardPreview` (данные товара, текст кнопки).
+- Открывает Modal с обновлённым предпросмотром.
